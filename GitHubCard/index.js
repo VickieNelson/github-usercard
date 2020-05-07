@@ -23,11 +23,11 @@
 //declare the variable
 const cardsDiv = document.querySelector(".cards");
 
-axios.get("https://api.github.com/users/VickieNelson").then((response) => {
-  let myInfo = response.data;
-  const newgitCard = createGitHubCard(myInfo);
-  cardsDiv.appendChild(newGitCard);
-});
+axios.get("https://api.github.com/users/VickieNelson")
+  .then((response) => {
+    let myInfo = response.data;
+    cardsDiv.appendChild(createGitHubCard(myInfo));
+  });
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -49,11 +49,10 @@ const followersArray = [
 ];
 
 followersArray.forEach(item => {
-axios.get(`https://api.github.com/users/${item}`).then(response=>{
-  let followerInfo = response.data;
-  const newGitCard(followerInfo);
-  cardsDiv.appendChild(newGitCard);
-});
+  axios.get(`https://api.github.com/users/${item}`).then(response => {
+    let followerInfo = response.data;
+    cardsDiv.appendChild(createGitHubCard(followerInfo)); //taking main cards div and appending child to have the 'newgitcard and apssing in the folowerinfo
+  });
 });
 
 /*
@@ -110,7 +109,7 @@ function createGitHubCard(object) {
   gitProfLink.textContent = object.html_url;
   gitProfile.appendChild(gitProfLink);
 
-  const gitFollowers = documenet.createElement("p");
+  const gitFollowers = document.createElement("p");
   gitFollowers.textContent = `Followers: ${object.followers}`;
   gitInfo.appendChild(gitFollowers);
 
