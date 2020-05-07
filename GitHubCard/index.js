@@ -3,9 +3,11 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-function getdata() {
-  axios.get("https://api.github.com/users/VickieNelson");
-}
+
+//axios.get("https://api.github.com/users/VickieNelson").then(response => {
+// console.log(response);
+//});
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -18,6 +20,16 @@ function getdata() {
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+//declare the variable
+const cardsDiv = document.querySelector(".cards");
+
+axios.get("https://api.github.com/users/VickieNelson").then(response => {
+  let myInfo = response.data;
+  const newgitCard = createGitHubCard(myInfo);
+  cardsDiv.appendChild(newGitCard);
+
+//});
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -51,6 +63,61 @@ const followersArray = [];
       </div>
     </div>
 */
+
+
+function createGitHubCard (object){
+
+const gitCard = document.createElement('div');
+gitCard.classList.add('card');
+
+const gitImg = document.createElement('img');
+gitCard.appendChild(gitImg);
+
+const gitInfo = document.createElement('div');
+gitCard.classList.add('card-info');
+gitCard.appendChild(gitInfo);
+
+const gitName = document.createElement('h3');
+gitName.textContent = object.name;
+gitName.classList.add('name');
+gitInfo.appendChild(gitName);
+
+const gitUserName = document.createElement('p');
+gitUserName.textContent = `Github username: ${pbject.login}`;
+gitUserName.classList.add('username');
+gitInfo.appendChild(gitUserName);
+
+const gitLocation = document.createElement('p');
+gitLocation.textContent = `Location: ${object.location}`;
+gitInfo.appendChild(gitLocation);
+
+const gitProfile = document.createElement('p');
+gitProfile.textContent = "Profile:";
+gitInfo.appendChild(gitProfile);
+
+const gitProfLink = document.createElement('a');
+gitProfLink.href = object.html_url;
+gitProfLink.textContent = object.html_url;
+gitProfile.appendChild(gitProfLink);
+
+const gitFollowers = documenet.createElement('p');
+gitFollowers.textContent = `Followers: ${object.followers}`;
+gitInfo.appendChild(gitFollowers);
+
+const gitFollowing = document.createElement('p');
+gitFollowing.textContent = `Following: ${object.following}`;
+gitInfo.appendChild(gitFollowing);
+
+const gitBio = document.createElement('p');
+gitBio.textContent = `Bio: ${object.bio}`;
+gitInfo.appendChild(gitBio);
+
+return gitCard;
+}//close createGitHubCard
+
+
+
+
 
 /*
   List of LS Instructors Github username's:
