@@ -75,19 +75,22 @@ followersArray.forEach(item => {
     </div>
 */
 
-function createGitHubCard(object) {
-  const gitCard = document.createElement("div");
-  gitCard.classList.add("card");
+function createGitHubCard(object) { //function start
 
-  const gitImg = document.createElement("img");
-  gitCard.appendChild(gitImg);
+  //variable
+  const gitCard = document.createElement("div");
+  gitCard.classList.add("card"); //add class
+
+  const gitImg = document.createElement("img"); //variable
+  gitImg.src = object.avatar_url; // img source
+  gitCard.appendChild(gitImg); // append
 
   const gitInfo = document.createElement("div");
   gitCard.classList.add("card-info");
   gitCard.appendChild(gitInfo);
 
   const gitName = document.createElement("h3");
-  gitName.textContent = object.name;
+  gitName.textContent = object.name; //add text content
   gitName.classList.add("name");
   gitInfo.appendChild(gitName);
 
@@ -120,6 +123,12 @@ function createGitHubCard(object) {
   const gitBio = document.createElement("p");
   gitBio.textContent = `Bio: ${object.bio}`;
   gitInfo.appendChild(gitBio);
+
+
+
+
+
+
 
   return gitCard;
 } //close createGitHubCard
