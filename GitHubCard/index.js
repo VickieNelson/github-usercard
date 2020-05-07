@@ -20,16 +20,14 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
 //declare the variable
 const cardsDiv = document.querySelector(".cards");
 
-axios.get("https://api.github.com/users/VickieNelson").then(response => {
+axios.get("https://api.github.com/users/VickieNelson").then((response) => {
   let myInfo = response.data;
   const newgitCard = createGitHubCard(myInfo);
   cardsDiv.appendChild(newGitCard);
-
-//});
+});
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -42,7 +40,21 @@ axios.get("https://api.github.com/users/VickieNelson").then(response => {
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+followersArray.forEach(item => {
+axios.get(`https://api.github.com/users/${item}`).then(response=>{
+  let followerInfo = response.data;
+  const newGitCard(followerInfo);
+  cardsDiv.appendChild(newGitCard);
+});
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -64,60 +76,54 @@ const followersArray = [];
     </div>
 */
 
+function createGitHubCard(object) {
+  const gitCard = document.createElement("div");
+  gitCard.classList.add("card");
 
-function createGitHubCard (object){
+  const gitImg = document.createElement("img");
+  gitCard.appendChild(gitImg);
 
-const gitCard = document.createElement('div');
-gitCard.classList.add('card');
+  const gitInfo = document.createElement("div");
+  gitCard.classList.add("card-info");
+  gitCard.appendChild(gitInfo);
 
-const gitImg = document.createElement('img');
-gitCard.appendChild(gitImg);
+  const gitName = document.createElement("h3");
+  gitName.textContent = object.name;
+  gitName.classList.add("name");
+  gitInfo.appendChild(gitName);
 
-const gitInfo = document.createElement('div');
-gitCard.classList.add('card-info');
-gitCard.appendChild(gitInfo);
+  const gitUserName = document.createElement("p");
+  gitUserName.textContent = `Github username: ${object.login}`;
+  gitUserName.classList.add("username");
+  gitInfo.appendChild(gitUserName);
 
-const gitName = document.createElement('h3');
-gitName.textContent = object.name;
-gitName.classList.add('name');
-gitInfo.appendChild(gitName);
+  const gitLocation = document.createElement("p");
+  gitLocation.textContent = `Location: ${object.location}`;
+  gitInfo.appendChild(gitLocation);
 
-const gitUserName = document.createElement('p');
-gitUserName.textContent = `Github username: ${pbject.login}`;
-gitUserName.classList.add('username');
-gitInfo.appendChild(gitUserName);
+  const gitProfile = document.createElement("p");
+  gitProfile.textContent = "Profile:";
+  gitInfo.appendChild(gitProfile);
 
-const gitLocation = document.createElement('p');
-gitLocation.textContent = `Location: ${object.location}`;
-gitInfo.appendChild(gitLocation);
+  const gitProfLink = document.createElement("a");
+  gitProfLink.href = object.html_url;
+  gitProfLink.textContent = object.html_url;
+  gitProfile.appendChild(gitProfLink);
 
-const gitProfile = document.createElement('p');
-gitProfile.textContent = "Profile:";
-gitInfo.appendChild(gitProfile);
+  const gitFollowers = documenet.createElement("p");
+  gitFollowers.textContent = `Followers: ${object.followers}`;
+  gitInfo.appendChild(gitFollowers);
 
-const gitProfLink = document.createElement('a');
-gitProfLink.href = object.html_url;
-gitProfLink.textContent = object.html_url;
-gitProfile.appendChild(gitProfLink);
+  const gitFollowing = document.createElement("p");
+  gitFollowing.textContent = `Following: ${object.following}`;
+  gitInfo.appendChild(gitFollowing);
 
-const gitFollowers = documenet.createElement('p');
-gitFollowers.textContent = `Followers: ${object.followers}`;
-gitInfo.appendChild(gitFollowers);
+  const gitBio = document.createElement("p");
+  gitBio.textContent = `Bio: ${object.bio}`;
+  gitInfo.appendChild(gitBio);
 
-const gitFollowing = document.createElement('p');
-gitFollowing.textContent = `Following: ${object.following}`;
-gitInfo.appendChild(gitFollowing);
-
-const gitBio = document.createElement('p');
-gitBio.textContent = `Bio: ${object.bio}`;
-gitInfo.appendChild(gitBio);
-
-return gitCard;
-}//close createGitHubCard
-
-
-
-
+  return gitCard;
+} //close createGitHubCard
 
 /*
   List of LS Instructors Github username's:
